@@ -28,11 +28,11 @@ const Header = () => {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <nav className="hidden md:block">
-              <ul className="flex items-center gap-6 text-[14px]">
+              <ul className="flex items-center gap-6 text-[0.875rem]">
                 <li>
                   <Link
                     to="/booking"
-                    className="font-primary text-[30px] tracking-wider text-primary transition hover:text-primary/60"
+                    className="font-primary text-[1.875rem] tracking-wider text-primary transition hover:text-primary/60"
                   >
                     Booking
                   </Link>
@@ -41,7 +41,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/confirmation"
-                    className="font-primary text-[30px] tracking-wider text-primary transition hover:text-primary/60"
+                    className="font-primary text-[1.875rem] tracking-wider text-primary transition hover:text-primary/60"
                   >
                     Confirmation
                   </Link>

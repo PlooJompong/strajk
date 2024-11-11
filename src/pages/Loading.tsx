@@ -11,7 +11,7 @@ const Loading = () => {
         <img src={logo} alt="logo" />
       </Link>
 
-      <h1 className="font-primary text-[80px] leading-[96px] tracking-[0.03em] text-primary">
+      <h1 className="font-primary text-[5rem] leading-[96px] tracking-[0.03em] text-primary">
         {text.map((char, index) => (
           <motion.span
             key={index}

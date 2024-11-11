@@ -16,7 +16,7 @@ const Confirmation = () => {
         <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
           <section className="flex flex-col items-center justify-center">
             <img src={logo} alt="logo" className="h-[110px] w-[76px]" />
-            <h1 className="font-primary text-[60px] leading-[72px] text-primary">
+            <h1 className="font-primary text-[3.75rem] leading-[72px] text-primary">
               SEE YOU SOON!
             </h1>
           </section>
