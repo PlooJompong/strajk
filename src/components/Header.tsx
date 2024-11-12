@@ -25,8 +25,8 @@ const Header = () => {
   return (
     <>
       <header className="bg-lightBackgroundColor">
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+        <div className="mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-8">
+          <div className="flex items-center justify-between">
             <nav className="hidden md:block">
               <ul className="flex items-center gap-6 text-[0.875rem]">
                 <li>

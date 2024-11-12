@@ -1,10 +1,14 @@
 type ButtonProps = {
   children: React.ReactNode;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button = ({ children }: ButtonProps) => {
+const Button = ({ onClick, children }: ButtonProps) => {
   return (
-    <button className="my-5 w-full max-w-96 rounded border bg-primary p-2.5 font-secondary text-[1.5rem] font-bold text-white">
+    <button
+      onClick={onClick}
+      className="my-5 w-full max-w-96 rounded border bg-primary p-2.5 font-secondary text-[1.5rem] font-bold text-white"
+    >
       {children}
     </button>
   );
