@@ -16,7 +16,7 @@ import Button from "../components/Button.tsx";
 import BookingNotFound from "../components/BookingNotFound.tsx";
 import logo from "../assets/logo.svg";
 
-const Confirmation = () => {
+const Confirmation: React.FC = () => {
   const location: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
 
@@ -28,7 +28,8 @@ const Confirmation = () => {
     if (stateData) {
       setBookingData(stateData);
     } else {
-      const storedBooking = localStorage.getItem("booking");
+      const storedBooking: string | null = localStorage.getItem("booking");
+
       if (storedBooking) {
         setBookingData(JSON.parse(storedBooking));
       } else {

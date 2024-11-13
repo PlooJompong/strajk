@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Header from "./Header";
-import Container from "./Container";
-import Divider from "./Divider";
-import InputError from "./InputError";
-import Button from "./Button";
+import Header from "./Header.tsx";
+import Container from "./Container.tsx";
+import Divider from "./Divider.tsx";
+import InputError from "./InputError.tsx";
+import Button from "./Button.tsx";
 import logo from "../assets/logo.svg";
 
-const BookingNotFound = () => {
+const BookingNotFound: React.FC = () => {
   return (
     <>
       <Header />

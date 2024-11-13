@@ -3,7 +3,10 @@ type detailsProps = {
   text: string;
 };
 
-const Details = ({ placeholder, text }: detailsProps) => {
+const Details: React.FC<detailsProps> = ({
+  placeholder,
+  text,
+}: detailsProps) => {
   return (
     <div className="relative w-full text-[0.875rem]">
       <p className="w-full rounded border border-secondary bg-transparent p-2 font-secondary tracking-[0.03em] text-darkText">

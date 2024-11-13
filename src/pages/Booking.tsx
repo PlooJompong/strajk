@@ -21,8 +21,10 @@ const Booking: React.FC = () => {
 
   const navigate: NavigateFunction = useNavigate();
 
-  const handlePlayerChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const playerCount = Number(e.target.value);
+  const handlePlayerChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const playerCount: number = Number(e.target.value);
     setPlayers(playerCount);
 
     if (playerCount > shoes.length) {
@@ -41,7 +43,14 @@ const Booking: React.FC = () => {
   const handleBooking = async (): Promise<void> => {
     const when = `${date}, ${time}`;
 
-    const validationError = validateBooking(date, time, players, lanes, shoes);
+    const validationError: string | null = validateBooking(
+      date,
+      time,
+      players,
+      lanes,
+      shoes,
+    );
+
     if (validationError) {
       setError(validationError);
       return;
