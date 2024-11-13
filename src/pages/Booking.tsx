@@ -56,7 +56,11 @@ const Booking: React.FC = () => {
 
     try {
       const response = await createBooking(bookingData);
-      console.log("Booking successful:", response);
+
+      console.log("Booking successful:", response); // LOG
+
+      localStorage.setItem("booking", JSON.stringify(response));
+
       navigate("/confirmation", { state: response });
     } catch (error) {
       console.error("Booking failed:", error);
