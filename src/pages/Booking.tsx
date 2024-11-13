@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { createBooking, BookingRequest } from "../utilities/api.ts";
+import { validateBooking } from "../utilities/inputValidation.ts";
 import Header from "../components/Header.tsx";
 import Container from "../components/Container.tsx";
 import Divider from "../components/Divider.tsx";
 import Input from "../components/Input.tsx";
 import InputSection from "../components/InputSection.tsx";
 import Button from "../components/Button.tsx";
+import InputError from "../components/InputError.tsx";
 import logo from "../assets/logo.svg";
 
 const Booking: React.FC = () => {
@@ -15,6 +17,8 @@ const Booking: React.FC = () => {
   const [players, setPlayers] = useState<number>(1);
   const [lanes, setLanes] = useState<number>(1);
   const [shoes, setShoes] = useState<string[]>([""]);
+  const [error, setError] = useState<string | null>(null);
+
   const navigate: NavigateFunction = useNavigate();
 
   const handlePlayerChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -36,6 +40,12 @@ const Booking: React.FC = () => {
 
   const handleBooking = async (): Promise<void> => {
     const when = `${date}, ${time}`;
+
+    const validationError = validateBooking(date, time, players, lanes, shoes);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
 
     const bookingData: BookingRequest = {
       when,
@@ -76,6 +86,12 @@ const Booking: React.FC = () => {
                 inputName="date"
                 inputId="date"
                 placeholder="DATE"
+                min={new Date().toISOString().split("T")[0]}
+                max={
+                  new Date(new Date().setMonth(new Date().getMonth() + 2))
+                    .toISOString()
+                    .split("T")[0]
+                }
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
@@ -84,6 +100,8 @@ const Booking: React.FC = () => {
                 inputId="time"
                 inputName="time"
                 placeholder="TIME"
+                min="10:00"
+                max="20:00"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
@@ -94,6 +112,8 @@ const Booking: React.FC = () => {
               inputId="players"
               inputName="players"
               placeholder="NUMBER OF AWESOME BOWLERS"
+              min={1}
+              max={40}
               value={String(players)}
               onChange={handlePlayerChange}
             />
@@ -103,6 +123,8 @@ const Booking: React.FC = () => {
               inputId="lanes"
               inputName="lanes"
               placeholder="NUMBER OF LANE"
+              min={1}
+              max={10}
               value={String(lanes)}
               onChange={(e) => setLanes(Number(e.target.value))}
             />
@@ -118,11 +140,15 @@ const Booking: React.FC = () => {
                 inputId={`shoe-${index}`}
                 inputName={`shoe-${index}`}
                 placeholder={`SHOE SIZE / PERSON ${index + 1}`}
+                min={30}
+                max={50}
                 value={size}
                 onChange={(e) => handleShoeSizeChange(index, e.target.value)}
               />
             ))}
           </InputSection>
+
+          {error && <InputError>{error}</InputError>}
 
           <Button onClick={handleBooking}>STRIIIIIIKE!</Button>
         </div>

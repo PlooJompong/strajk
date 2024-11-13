@@ -18,14 +18,14 @@ const Header = () => {
     },
   };
 
-  const toggleOpen = () => {
+  const toggleOpen = (): void => {
     setIsOpen((prev) => !prev);
   };
 
   return (
     <>
       <header className="bg-lightBackgroundColor">
-        <div className="mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-8">
+        <div className="mx-auto max-w-screen-xl p-4">
           <div className="flex items-center justify-between">
             <nav className="hidden md:block">
               <ul className="flex items-center gap-6 text-[0.875rem]">

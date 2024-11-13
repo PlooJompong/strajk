@@ -4,6 +4,8 @@ type InputProps = {
   inputId: string;
   placeholder: string;
   value?: string | number;
+  min?: string | number;
+  max?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -13,6 +15,8 @@ const Input: React.FC<InputProps> = ({
   inputId,
   placeholder,
   value,
+  min,
+  max,
   onChange,
 }: InputProps) => {
   return (
@@ -23,6 +27,8 @@ const Input: React.FC<InputProps> = ({
         name={inputName}
         id={inputId}
         value={value}
+        min={min}
+        max={max}
         onChange={onChange}
       />
       <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-lightBackgroundColor p-0.5 font-secondary text-[0.75rem] text-secondary">
