@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.svg";
 
 const Landing: React.FC = () => {
   const text: string[] = "STRAJK".split("");
+
+  useEffect(() => {
+    localStorage.removeItem("booking");
+  }, []);
 
   return (
     <div className="mx-auto flex h-auto min-h-screen w-full flex-col items-center justify-center bg-lightBackgroundColor tracking-[0.03em]">
