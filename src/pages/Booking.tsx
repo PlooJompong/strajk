@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { createBooking, BookingRequest } from "../utilities/api.ts";
+import { createBooking, BookingRequest } from "../services/api.ts";
 import { validateBooking } from "../utilities/inputValidation.ts";
 import Header from "../components/Header.tsx";
 import Container from "../components/Container.tsx";
+import Transition from "../components/Transition.tsx";
 import Divider from "../components/Divider.tsx";
 import Input from "../components/Input.tsx";
 import InputSection from "../components/InputSection.tsx";
@@ -82,89 +83,89 @@ const Booking: React.FC = () => {
       <Header />
 
       <Container>
-        <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-          <section className="flex flex-col items-center justify-center">
-            <img src={logo} alt="logo" className="h-[110px] w-[76px]" />
-            <h1 className="font-primary text-[3.75rem] leading-[72px] text-primary">
-              BOOKING
-            </h1>
-          </section>
+        <Transition>
+          <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+            <section className="flex flex-col items-center justify-center">
+              <img src={logo} alt="logo" className="h-[110px] w-[76px]" />
+              <h1 className="font-primary text-[3.75rem] leading-[72px] text-primary">
+                BOOKING
+              </h1>
+            </section>
 
-          <Divider dividerText="WHEN, WHAT & WHO" />
+            <Divider dividerText="WHEN, WHAT & WHO" />
 
-          <InputSection>
-            <div className="flex w-full items-center justify-center gap-5">
-              <Input
-                inputType="date"
-                inputName="date"
-                inputId="date"
-                placeholder="DATE"
-                min={new Date().toISOString().split("T")[0]}
-                max={
-                  new Date(new Date().setMonth(new Date().getMonth() + 2))
-                    .toISOString()
-                    .split("T")[0]
-                }
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-              <Input
-                inputType="time"
-                inputId="time"
-                inputName="time"
-                placeholder="TIME"
-                min="10:00"
-                max="20:00"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-              />
-            </div>
+            <InputSection>
+              <div className="flex w-full items-center justify-center gap-5">
+                <Input
+                  inputType="date"
+                  inputName="date"
+                  inputId="date"
+                  label="DATE"
+                  min={new Date().toISOString().split("T")[0]}
+                  max={
+                    new Date(new Date().setMonth(new Date().getMonth() + 2))
+                      .toISOString()
+                      .split("T")[0]
+                  }
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+                <Input
+                  inputType="time"
+                  inputId="time"
+                  inputName="time"
+                  label="TIME"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                />
+              </div>
 
-            <Input
-              inputType="number"
-              inputId="players"
-              inputName="players"
-              placeholder="NUMBER OF AWESOME BOWLERS"
-              min={1}
-              max={40}
-              value={String(players)}
-              onChange={handlePlayerChange}
-            />
-
-            <Input
-              inputType="number"
-              inputId="lanes"
-              inputName="lanes"
-              placeholder="NUMBER OF LANE"
-              min={1}
-              max={10}
-              value={String(lanes)}
-              onChange={(e) => setLanes(Number(e.target.value))}
-            />
-          </InputSection>
-
-          <Divider dividerText="SHOES" />
-
-          <InputSection>
-            {shoes.map((size, index) => (
               <Input
                 inputType="number"
-                key={index}
-                inputId={`shoe-${index}`}
-                inputName={`shoe-${index}`}
-                placeholder={`SHOE SIZE / PERSON ${index + 1}`}
-                min={30}
-                max={50}
-                value={size}
-                onChange={(e) => handleShoeSizeChange(index, e.target.value)}
+                inputId="players"
+                inputName="players"
+                label="NUMBER OF AWESOME BOWLERS"
+                min={1}
+                max={40}
+                value={String(players)}
+                onChange={handlePlayerChange}
               />
-            ))}
-          </InputSection>
 
-          {error && <InputError>{error}</InputError>}
+              <Input
+                inputType="number"
+                inputId="lanes"
+                inputName="lanes"
+                label="NUMBER OF LANE"
+                min={1}
+                max={10}
+                value={String(lanes)}
+                onChange={(e) => setLanes(Number(e.target.value))}
+              />
+            </InputSection>
 
-          <Button onClick={handleBooking}>STRIIIIIIKE!</Button>
-        </div>
+            <Divider dividerText="SHOES" />
+
+            <InputSection>
+              {shoes.map((size, index) => (
+                <Input
+                  inputType="number"
+                  key={index}
+                  inputId={`shoe-${index}`}
+                  inputName={`shoe-${index}`}
+                  label={`SHOE SIZE / PERSON ${index + 1}`}
+                  min={30}
+                  max={50}
+                  value={size}
+                  onChange={(e) => handleShoeSizeChange(index, e.target.value)}
+                />
+              ))}
+            </InputSection>
+
+            {error && <InputError>{error}</InputError>}
+
+            <Button onClick={handleBooking}>STRIIIIIIKE!</Button>
+          </div>
+        </Transition>
       </Container>
     </>
   );

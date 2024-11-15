@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.svg";
 
-const Loading: React.FC = () => {
+const Landing: React.FC = () => {
   const text: string[] = "STRAJK".split("");
 
   return (
@@ -37,4 +37,4 @@ const Loading: React.FC = () => {
   );
 };
 
-export default Loading;
+export default Landing;

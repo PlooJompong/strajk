@@ -1,4 +1,4 @@
-import Loading from "./pages/Loading.tsx";
+import Landing from "./pages/Landing.tsx";
 import Booking from "./pages/Booking.tsx";
 import Confirmation from "./pages/Confirmation.tsx";
 
@@ -8,7 +8,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Loading />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/confirmation" element={<Confirmation />} />
       </Routes>

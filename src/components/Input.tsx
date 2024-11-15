@@ -2,7 +2,7 @@ type InputProps = {
   inputType: string;
   inputName: string;
   inputId: string;
-  placeholder: string;
+  label: string;
   value?: string | number;
   min?: string | number;
   max?: string | number;
@@ -13,7 +13,7 @@ const Input: React.FC<InputProps> = ({
   inputType,
   inputName,
   inputId,
-  placeholder,
+  label,
   value,
   min,
   max,
@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="relative w-full text-[0.875rem]">
       <input
-        className="w-full rounded border border-secondary bg-transparent p-2 text-darkText"
+        className="w-full rounded border border-secondary bg-transparent p-2 text-darkText focus:outline-secondary"
         type={inputType}
         name={inputName}
         id={inputId}
@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
         onChange={onChange}
       />
       <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-lightBackgroundColor p-0.5 font-secondary text-[0.75rem] text-secondary">
-        {placeholder}
+        {label}
       </span>
     </div>
   );
