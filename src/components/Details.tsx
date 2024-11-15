@@ -1,12 +1,12 @@
-type detailsProps = {
+type DetailsProps = {
   placeholder: string;
   text: string;
 };
 
-const Details: React.FC<detailsProps> = ({
+const Details: React.FC<DetailsProps> = ({
   placeholder,
   text,
-}: detailsProps) => {
+}: DetailsProps) => {
   return (
     <div className="relative w-full text-[0.875rem]">
       <p className="w-full rounded border border-secondary bg-transparent p-2 font-secondary tracking-[0.03em] text-darkText">

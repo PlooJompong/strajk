@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 import { createBooking, BookingRequest } from "../services/api.ts";
 import { validateBooking } from "../utilities/inputValidation.ts";
 import Header from "../components/Header.tsx";
@@ -22,23 +22,23 @@ const Booking: React.FC = () => {
 
   const navigate: NavigateFunction = useNavigate();
 
-  const handlePlayerChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    const playerCount: number = Number(e.target.value);
+  const handlePlayerChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const playerCount = Number(e.target.value);
     setPlayers(playerCount);
 
-    if (playerCount > shoes.length) {
-      setShoes([...shoes, ...Array(playerCount - shoes.length).fill("")]);
-    } else if (playerCount < shoes.length) {
-      setShoes(shoes.slice(0, playerCount));
-    }
+    setShoes((prevShoes) =>
+      playerCount > prevShoes.length
+        ? [...prevShoes, ...Array(playerCount - prevShoes.length).fill("")]
+        : prevShoes.slice(0, playerCount),
+    );
   };
 
   const handleShoeSizeChange = (index: number, value: string): void => {
-    const updatedShoes = [...shoes];
-    updatedShoes[index] = value;
-    setShoes(updatedShoes);
+    setShoes((prevShoes) => {
+      const updatedShoes = [...prevShoes];
+      updatedShoes[index] = value;
+      return updatedShoes;
+    });
   };
 
   const handleBooking = async (): Promise<void> => {
@@ -66,12 +66,8 @@ const Booking: React.FC = () => {
 
     try {
       const response = await createBooking(bookingData);
-
-      console.log("Booking successful:", response); // LOG
-
       localStorage.setItem("booking", JSON.stringify(response));
-
-      navigate("/confirmation", { state: response });
+      navigate("/confirmation");
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Failed to create booking. Please try again.");
@@ -97,9 +93,9 @@ const Booking: React.FC = () => {
             <InputSection>
               <div className="flex w-full items-center justify-center gap-5">
                 <Input
-                  inputType="date"
-                  inputName="date"
-                  inputId="date"
+                  type="date"
+                  name="date"
+                  id="date"
                   label="DATE"
                   min={new Date().toISOString().split("T")[0]}
                   max={
@@ -111,9 +107,9 @@ const Booking: React.FC = () => {
                   onChange={(e) => setDate(e.target.value)}
                 />
                 <Input
-                  inputType="time"
-                  inputId="time"
-                  inputName="time"
+                  type="time"
+                  name="time"
+                  id="time"
                   label="TIME"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
@@ -121,9 +117,9 @@ const Booking: React.FC = () => {
               </div>
 
               <Input
-                inputType="number"
-                inputId="players"
-                inputName="players"
+                type="number"
+                name="players"
+                id="players"
                 label="NUMBER OF AWESOME BOWLERS"
                 min={1}
                 max={40}
@@ -132,9 +128,9 @@ const Booking: React.FC = () => {
               />
 
               <Input
-                inputType="number"
-                inputId="lanes"
-                inputName="lanes"
+                type="number"
+                name="lanes"
+                id="lanes"
                 label="NUMBER OF LANE"
                 min={1}
                 max={10}
@@ -148,14 +144,15 @@ const Booking: React.FC = () => {
             <InputSection>
               {shoes.map((size, index) => (
                 <Input
-                  inputType="number"
+                  type="number"
                   key={index}
-                  inputId={`shoe-${index}`}
-                  inputName={`shoe-${index}`}
+                  name={`shoe-${index}`}
+                  id={`shoe-${index}`}
                   label={`SHOE SIZE / PERSON ${index + 1}`}
                   min={30}
                   max={50}
                   value={size}
+                  placeholder="size 30-50"
                   onChange={(e) => handleShoeSizeChange(index, e.target.value)}
                 />
               ))}

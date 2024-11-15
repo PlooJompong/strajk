@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  useLocation,
-  Link,
-  Location,
-  NavigateFunction,
-  useNavigate,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BookingResponse } from "../services/api.ts";
 import Header from "../components/Header.tsx";
 import Container from "../components/Container.tsx";
@@ -18,33 +12,17 @@ import BookingNotFound from "../components/BookingNotFound.tsx";
 import logo from "../assets/logo.svg";
 
 const Confirmation: React.FC = () => {
-  const location: Location = useLocation();
-  const navigate: NavigateFunction = useNavigate();
-
   const [bookingData, setBookingData] = useState<BookingResponse | null>(null);
-  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    const stateData = location.state as BookingResponse | null;
-    if (stateData) {
-      setBookingData(stateData);
-    } else {
-      const storedBooking: string | null = localStorage.getItem("booking");
-
-      if (storedBooking) {
-        setBookingData(JSON.parse(storedBooking));
-      } else {
-        setError(true);
-      }
+    const storedBooking: string | null = localStorage.getItem("booking");
+    if (storedBooking) {
+      setBookingData(JSON.parse(storedBooking));
     }
-  }, [location.state, navigate]);
-
-  if (error) {
-    return <BookingNotFound />;
-  }
+  }, []);
 
   if (!bookingData) {
-    return null;
+    return <BookingNotFound />;
   }
 
   const { when, lanes, people, id, price } = bookingData;
@@ -66,7 +44,7 @@ const Confirmation: React.FC = () => {
             <Divider dividerText="BOOKING DETAILS" />
 
             <InputSection>
-              <Details placeholder="WHEN" text={when || "N/A"} />
+              <Details placeholder="WHEN" text={when} />
               <Details
                 placeholder="WHO"
                 text={`${people === 1 ? "1 per" : `${people} pers`} `}
@@ -75,10 +53,11 @@ const Confirmation: React.FC = () => {
                 placeholder="LANES"
                 text={`${lanes === 1 ? "1 lane" : `${lanes} lanes`} `}
               />
-              <Details placeholder="BOOKING NUMBER" text={id || "N/A"} />
+              <Details placeholder="BOOKING NUMBER" text={id} />
+
               <div className="mt-5 flex w-full items-center justify-between rounded border border-primary bg-transparent p-2 text-primary">
                 <p className="font-bold">total</p>
-                <p>{`${price || 0} SEK`}</p>
+                <p>{`${price} SEK`}</p>
               </div>
             </InputSection>
 
